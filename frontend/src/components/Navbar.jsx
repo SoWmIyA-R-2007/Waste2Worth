@@ -14,18 +14,25 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '16px 32px',
-      background: '#ffffff',
-      borderBottom: '1px solid #e2e8f0',
-      boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
+    <header style={{
+      maxWidth: '1240px',
+      margin: '16px auto 0 auto',
+      padding: '0 24px',
       position: 'sticky',
-      top: 0,
+      top: '12px',
       zIndex: 100
     }}>
+      <nav style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '12px 24px',
+        background: '#ffffff',
+        borderRadius: 'var(--radius-lg)',
+        border: '1px solid #e2e8f0',
+        boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+        backdropFilter: 'blur(10px)'
+      }}>
       <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
         <div style={{
           width: '42px',
@@ -127,5 +134,6 @@ export default function Navbar() {
         </button>
       </div>
     </nav>
+  </header>
   );
 }
