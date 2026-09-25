@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { ewasteService } from '../../services/api';
-import { Package, Recycle, Award, ArrowUpRight, Plus, Clock, CheckCircle, Truck, FileText } from 'lucide-react';
+import { Package, Recycle, Award, Plus } from 'lucide-react';
 
 export default function UserDashboard() {
   const { currentUser } = useAuth();
@@ -24,14 +24,13 @@ export default function UserDashboard() {
   }, [currentUser]);
 
   const totalKg = requests.reduce((acc, curr) => acc + (curr.weightKg || 0), currentUser?.totalWasteKg || 28.4);
-  const totalValue = requests.reduce((acc, curr) => acc + (curr.estimatedValue || 0), 3200);
 
   return (
     <div style={{ maxWidth: '1200px', margin: '40px auto', padding: '0 24px' }}>
       {/* Welcome Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
         <div>
-          <h1 style={{ fontSize: '2.2rem', marginBottom: '4px' }}>
+          <h1 style={{ fontSize: '2.2rem', marginBottom: '4px', color: '#0f172a' }}>
             Welcome, <span className="text-gradient">{currentUser?.fullName || 'Sowmiya'}</span> 👋
           </h1>
           <p style={{ color: 'var(--text-secondary)' }}>
@@ -50,11 +49,11 @@ export default function UserDashboard() {
         <div className="glass-panel" style={{ padding: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 600 }}>Total Requests</span>
-            <div style={{ padding: '8px', borderRadius: '10px', background: 'rgba(6, 182, 212, 0.15)' }}>
+            <div style={{ padding: '8px', borderRadius: '10px', background: '#e0f2fe' }}>
               <Package size={20} color="var(--accent-cyan)" />
             </div>
           </div>
-          <div style={{ fontSize: '2.4rem', fontWeight: 800, marginTop: '12px' }}>
+          <div style={{ fontSize: '2.4rem', fontWeight: 800, marginTop: '12px', color: '#0f172a' }}>
             {requests.length || 12}
           </div>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Items registered for processing</span>
@@ -63,11 +62,11 @@ export default function UserDashboard() {
         <div className="glass-panel" style={{ padding: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 600 }}>Total Recycled</span>
-            <div style={{ padding: '8px', borderRadius: '10px', background: 'rgba(16, 185, 129, 0.15)' }}>
-              <Recycle size={20} color="var(--primary-400)" />
+            <div style={{ padding: '8px', borderRadius: '10px', background: '#ecfdf5' }}>
+              <Recycle size={20} color="var(--primary-600)" />
             </div>
           </div>
-          <div style={{ fontSize: '2.4rem', fontWeight: 800, marginTop: '12px', color: '#34d399' }}>
+          <div style={{ fontSize: '2.4rem', fontWeight: 800, marginTop: '12px', color: '#059669' }}>
             {totalKg.toFixed(1)} <span style={{ fontSize: '1.2rem' }}>KG</span>
           </div>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Prevented from landfills</span>
@@ -76,11 +75,11 @@ export default function UserDashboard() {
         <div className="glass-panel" style={{ padding: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 600 }}>EcoPoints Balance</span>
-            <div style={{ padding: '8px', borderRadius: '10px', background: 'rgba(245, 158, 11, 0.15)' }}>
+            <div style={{ padding: '8px', borderRadius: '10px', background: '#fef3c7' }}>
               <Award size={20} color="var(--accent-amber)" />
             </div>
           </div>
-          <div style={{ fontSize: '2.4rem', fontWeight: 800, marginTop: '12px', color: '#fbbf24' }}>
+          <div style={{ fontSize: '2.4rem', fontWeight: 800, marginTop: '12px', color: '#d97706' }}>
             {currentUser?.ecoPoints || 1850}
           </div>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Redeemable rewards</span>
@@ -90,8 +89,8 @@ export default function UserDashboard() {
       {/* Recent Requests Table */}
       <div className="glass-panel" style={{ padding: '28px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-          <h3 style={{ fontSize: '1.25rem' }}>Recent E-Waste Pickup Requests</h3>
-          <Link to="/requests" style={{ color: '#34d399', fontSize: '0.85rem', textDecoration: 'none', fontWeight: 600 }}>
+          <h3 style={{ fontSize: '1.25rem', color: '#0f172a' }}>Recent E-Waste Pickup Requests</h3>
+          <Link to="/requests" style={{ color: '#059669', fontSize: '0.85rem', textDecoration: 'none', fontWeight: 600 }}>
             View All →
           </Link>
         </div>
@@ -112,8 +111,8 @@ export default function UserDashboard() {
                   justifyContent: 'space-between',
                   padding: '16px 20px',
                   borderRadius: 'var(--radius-md)',
-                  background: 'rgba(255, 255, 255, 0.02)',
-                  border: '1px solid var(--border-glass)'
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -121,15 +120,15 @@ export default function UserDashboard() {
                     width: '40px',
                     height: '40px',
                     borderRadius: '10px',
-                    background: 'rgba(16, 185, 129, 0.1)',
+                    background: '#ecfdf5',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}>
-                    <Recycle size={20} color="#34d399" />
+                    <Recycle size={20} color="#059669" />
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '0.95rem', marginBottom: '2px' }}>
+                    <h4 style={{ fontSize: '0.95rem', marginBottom: '2px', color: '#0f172a' }}>
                       {item.brand} {item.model} ({item.category})
                     </h4>
                     <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -141,7 +140,7 @@ export default function UserDashboard() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
                   <div>
                     <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)' }}>Estimated Value</span>
-                    <strong style={{ color: '#fbbf24', fontSize: '0.95rem' }}>₹ {item.estimatedValue}</strong>
+                    <strong style={{ color: '#d97706', fontSize: '0.95rem' }}>₹ {item.estimatedValue}</strong>
                   </div>
 
                   <span style={{
@@ -149,8 +148,9 @@ export default function UserDashboard() {
                     borderRadius: '9999px',
                     fontSize: '0.75rem',
                     fontWeight: 700,
-                    background: item.status === 'RECYCLED' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(6, 182, 212, 0.2)',
-                    color: item.status === 'RECYCLED' ? '#34d399' : '#06b6d4'
+                    background: item.status === 'RECYCLED' ? '#ecfdf5' : '#e0f2fe',
+                    color: item.status === 'RECYCLED' ? '#059669' : '#0284c7',
+                    border: item.status === 'RECYCLED' ? '1px solid #a7f3d0' : '1px solid #bae6fd'
                   }}>
                     {item.status || 'REQUESTED'}
                   </span>

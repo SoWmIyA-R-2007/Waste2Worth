@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ewasteService, recyclerService } from '../../services/api';
-import { Truck, CheckCircle, Package, Layers, Activity, QrCode } from 'lucide-react';
+import { Layers } from 'lucide-react';
 
 export default function RecyclerDashboard() {
   const [requests, setRequests] = useState([]);
@@ -29,7 +29,7 @@ export default function RecyclerDashboard() {
     <div style={{ maxWidth: '1200px', margin: '40px auto', padding: '0 24px' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
         <div>
-          <h1 style={{ fontSize: '2.2rem', marginBottom: '4px' }}>
+          <h1 style={{ fontSize: '2.2rem', marginBottom: '4px', color: '#0f172a' }}>
             Recycler <span className="text-gradient">Operations Center</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)' }}>
@@ -38,7 +38,7 @@ export default function RecyclerDashboard() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Facility:</span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Facility:</span>
           <select
             className="form-select"
             value={selectedCenter}
@@ -56,28 +56,28 @@ export default function RecyclerDashboard() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '36px' }}>
         <div className="glass-panel" style={{ padding: '20px' }}>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Daily Capacity</span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '6px' }}>
+          <div style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '6px', color: '#0f172a' }}>
             {currentCenter?.dailyCapacityKg || 500} <span style={{ fontSize: '0.9rem' }}>KG</span>
           </div>
         </div>
 
         <div className="glass-panel" style={{ padding: '20px' }}>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Current Facility Load</span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '6px', color: '#34d399' }}>
+          <div style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '6px', color: '#059669' }}>
             {currentCenter?.currentLoadKg || 145} <span style={{ fontSize: '0.9rem' }}>KG</span>
           </div>
         </div>
 
         <div className="glass-panel" style={{ padding: '20px' }}>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Efficiency Rating</span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '6px', color: '#06b6d4' }}>
+          <div style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '6px', color: '#0284c7' }}>
             {currentCenter?.efficiencyRating || 94.5}%
           </div>
         </div>
 
         <div className="glass-panel" style={{ padding: '20px' }}>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Pending Pickups</span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '6px', color: '#fbbf24' }}>
+          <div style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '6px', color: '#d97706' }}>
             {requests.filter(r => r.status !== 'RECYCLED').length}
           </div>
         </div>
@@ -85,15 +85,15 @@ export default function RecyclerDashboard() {
 
       {/* Recovered Material Inventory */}
       <div className="glass-panel" style={{ padding: '24px', marginBottom: '32px' }}>
-        <h3 style={{ fontSize: '1.15rem', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Layers size={18} color="var(--primary-400)" />
+        <h3 style={{ fontSize: '1.15rem', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0f172a' }}>
+          <Layers size={18} color="var(--primary-600)" />
           Recovered Raw Materials Inventory
         </h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
           {currentCenter?.recoveredInventory && Object.entries(currentCenter.recoveredInventory).map(([material, qty]) => (
-            <div key={material} style={{ background: 'rgba(255,255,255,0.02)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-glass)' }}>
+            <div key={material} style={{ background: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
               <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>{material}</span>
-              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#f8fafc', marginTop: '4px' }}>
+              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0f172a', marginTop: '4px' }}>
                 {qty}
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function RecyclerDashboard() {
 
       {/* Pickup Management Table */}
       <div className="glass-panel" style={{ padding: '28px' }}>
-        <h3 style={{ fontSize: '1.25rem', marginBottom: '20px' }}>Incoming & Active Pickup Requests</h3>
+        <h3 style={{ fontSize: '1.25rem', marginBottom: '20px', color: '#0f172a' }}>Incoming & Active Pickup Requests</h3>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {requests.map(item => (
@@ -115,13 +115,13 @@ export default function RecyclerDashboard() {
                 justifyContent: 'space-between',
                 padding: '16px 20px',
                 borderRadius: 'var(--radius-md)',
-                background: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid var(--border-glass)'
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0'
               }}
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <strong style={{ color: '#34d399', fontSize: '1rem' }}>{item.wasteId}</strong>
+                  <strong style={{ color: '#059669', fontSize: '1rem' }}>{item.wasteId}</strong>
                   <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>• {item.brand} {item.model}</span>
                 </div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
@@ -134,7 +134,7 @@ export default function RecyclerDashboard() {
                   className="form-select"
                   value={item.status || 'REQUESTED'}
                   onChange={(e) => handleStatusUpdate(item.id, e.target.value)}
-                  style={{ padding: '6px 12px', fontSize: '0.85rem' }}
+                  style={{ padding: '6px 12px', fontSize: '0.85rem', width: 'auto' }}
                 >
                   <option value="REQUESTED">REQUESTED</option>
                   <option value="SCHEDULED">SCHEDULED</option>

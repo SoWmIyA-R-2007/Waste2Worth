@@ -23,7 +23,6 @@ export default function SubmitEWaste() {
   const [submittedItem, setSubmittedItem] = useState(null);
 
   useEffect(() => {
-    // Dynamic real-time recalculation
     const fetchEstimate = async () => {
       const res = await ewasteService.getEstimate({
         category,
@@ -75,28 +74,31 @@ export default function SubmitEWaste() {
   if (submittedItem) {
     return (
       <div style={{ maxWidth: '700px', margin: '40px auto', padding: '0 20px' }}>
-        <div className="glass-panel-glow" style={{ padding: '36px', textAlign: 'center' }}>
+        <div className="glass-panel" style={{ padding: '36px', textAlign: 'center' }}>
           <div style={{
             width: '64px',
             height: '64px',
             borderRadius: '50%',
-            background: 'rgba(16, 185, 129, 0.2)',
+            background: '#ecfdf5',
+            border: '2px solid #a7f3d0',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto 20px'
           }}>
-            <CheckCircle2 color="#34d399" size={36} />
+            <CheckCircle2 color="#059669" size={36} />
           </div>
 
-          <h2 style={{ fontSize: '1.8rem', marginBottom: '8px' }}>Pickup Request Scheduled!</h2>
+          <h2 style={{ fontSize: '1.8rem', color: '#0f172a', marginBottom: '8px' }}>
+            Pickup Request Scheduled!
+          </h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>
-            Your e-waste tracking record has been created with cryptographic SHA-256 verification.
+            Your e-waste record has been registered with cryptographic SHA-256 integrity verification.
           </p>
 
           <div style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid var(--border-glass)',
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
             borderRadius: 'var(--radius-lg)',
             padding: '24px',
             marginBottom: '28px',
@@ -105,12 +107,12 @@ export default function SubmitEWaste() {
             alignItems: 'center',
             gap: '16px'
           }}>
-            <div style={{ background: '#ffffff', padding: '12px', borderRadius: '12px' }}>
+            <div style={{ background: '#ffffff', padding: '14px', borderRadius: '14px', border: '1px solid #e2e8f0', boxShadow: 'var(--shadow-sm)' }}>
               <QRCodeSVG value={submittedItem.qrCodeData || submittedItem.wasteId} size={140} />
             </div>
 
             <div>
-              <span style={{ fontSize: '1.4rem', fontWeight: 800, color: '#34d399' }}>
+              <span style={{ fontSize: '1.4rem', fontWeight: 800, color: '#059669' }}>
                 {submittedItem.wasteId}
               </span>
               <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)', wordBreak: 'break-all', marginTop: '4px' }}>
@@ -126,17 +128,17 @@ export default function SubmitEWaste() {
               marginTop: '12px',
               textAlign: 'left'
             }}>
-              <div style={{ background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '8px' }}>
+              <div style={{ background: '#ffffff', padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>Valuation</span>
-                <strong style={{ color: '#fbbf24', fontSize: '1.1rem' }}>₹ {submittedItem.estimatedValue}</strong>
+                <strong style={{ color: '#d97706', fontSize: '1.1rem' }}>₹ {submittedItem.estimatedValue}</strong>
               </div>
-              <div style={{ background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '8px' }}>
+              <div style={{ background: '#ffffff', padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>Assigned Recycler</span>
-                <strong style={{ color: '#ffffff', fontSize: '0.9rem' }}>{submittedItem.matchedRecyclerName}</strong>
+                <strong style={{ color: '#0f172a', fontSize: '0.9rem' }}>{submittedItem.matchedRecyclerName}</strong>
               </div>
-              <div style={{ background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '8px' }}>
+              <div style={{ background: '#ffffff', padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>EcoPoints Earned</span>
-                <strong style={{ color: '#34d399', fontSize: '1.1rem' }}>+{submittedItem.ecoPointsEarned} pts</strong>
+                <strong style={{ color: '#059669', fontSize: '1.1rem' }}>+{submittedItem.ecoPointsEarned} pts</strong>
               </div>
             </div>
           </div>
@@ -156,7 +158,7 @@ export default function SubmitEWaste() {
   return (
     <div style={{ maxWidth: '1000px', margin: '40px auto', padding: '0 20px' }}>
       <div style={{ marginBottom: '32px' }}>
-        <h1 style={{ fontSize: '2.2rem', marginBottom: '8px' }}>
+        <h1 style={{ fontSize: '2.2rem', marginBottom: '8px', color: '#0f172a' }}>
           Submit <span className="text-gradient">E-Waste</span>
         </h1>
         <p style={{ color: 'var(--text-secondary)' }}>
@@ -167,8 +169,8 @@ export default function SubmitEWaste() {
       <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '32px' }}>
         {/* Form section */}
         <form onSubmit={handleSubmit} className="glass-panel" style={{ padding: '32px' }}>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <PlusCircle size={20} color="var(--primary-400)" />
+          <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0f172a' }}>
+            <PlusCircle size={20} color="var(--primary-600)" />
             Device Details
           </h3>
 
@@ -254,8 +256,8 @@ export default function SubmitEWaste() {
             </div>
           </div>
 
-          <h3 style={{ fontSize: '1.2rem', marginTop: '24px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <MapPin size={20} color="var(--primary-400)" />
+          <h3 style={{ fontSize: '1.2rem', marginTop: '24px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0f172a' }}>
+            <MapPin size={20} color="var(--primary-600)" />
             Pickup Location & Time
           </h3>
 
@@ -311,11 +313,11 @@ export default function SubmitEWaste() {
         {/* Live valuation & Recycler Match summary */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div className="glass-panel" style={{ padding: '28px' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
               Valuation Engine 2.0
             </span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '8px' }}>
-              <span style={{ fontSize: '2.6rem', fontWeight: 800, color: '#fbbf24' }}>
+              <span style={{ fontSize: '2.6rem', fontWeight: 800, color: '#d97706' }}>
                 ₹ {estimatedValue}
               </span>
               <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>estimated cash value</span>
@@ -325,35 +327,35 @@ export default function SubmitEWaste() {
               marginTop: '16px',
               padding: '12px 16px',
               borderRadius: 'var(--radius-md)',
-              background: 'rgba(16, 185, 129, 0.1)',
-              border: '1px solid rgba(16, 185, 129, 0.2)',
+              background: '#ecfdf5',
+              border: '1px solid #a7f3d0',
               display: 'flex',
               alignItems: 'center',
               gap: '10px'
             }}>
-              <Sparkles size={18} color="#34d399" />
-              <span style={{ fontSize: '0.85rem', color: '#34d399', fontWeight: 600 }}>
+              <Sparkles size={18} color="#059669" />
+              <span style={{ fontSize: '0.85rem', color: '#059669', fontWeight: 600 }}>
                 Earns +{Math.max(10, Math.round(weightKg * 10 + estimatedValue / 10))} EcoPoints on recycling!
               </span>
             </div>
           </div>
 
           <div className="glass-panel" style={{ padding: '28px' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
               Optimal Recycler Match
             </span>
-            <h4 style={{ fontSize: '1.2rem', marginTop: '10px', color: '#ffffff' }}>GreenCycle EcoHub</h4>
+            <h4 style={{ fontSize: '1.2rem', marginTop: '10px', color: '#0f172a' }}>GreenCycle EcoHub</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '14px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ color: '#34d399' }}>✓</span>
+                <span style={{ color: '#059669', fontWeight: 700 }}>✓</span>
                 <span>Distance: ~4.2 KM away (Haversine Optimized)</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ color: '#34d399' }}>✓</span>
+                <span style={{ color: '#059669', fontWeight: 700 }}>✓</span>
                 <span>Accepts {category} category</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ color: '#34d399' }}>✓</span>
+                <span style={{ color: '#059669', fontWeight: 700 }}>✓</span>
                 <span>Available daily processing capacity</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
