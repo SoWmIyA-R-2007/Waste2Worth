@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ewasteService } from '../../services/api';
+import { Link } from 'react-router-dom';
+import { ewasteApi } from '../../api/ewasteApi';
 import { useAuth } from '../../context/AuthContext';
 import { PlusCircle, ShieldCheck, Sparkles, MapPin, Calendar, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
@@ -24,13 +25,19 @@ export default function SubmitEWaste() {
 
   useEffect(() => {
     const fetchEstimate = async () => {
-      const res = await ewasteService.getEstimate({
-        category,
-        condition,
-        weightKg,
-        quantity
-      });
-      setEstimatedValue(res.estimatedValue);
+      try {
+        const res = await ewasteApi.getEstimate({
+          category,
+          condition,
+          weightKg,
+          quantity
+        });
+        setEstimatedValue(res.estimatedValue);
+      } catch (e) {
+        // Fallback calculation
+        const base = 250;
+        setEstimatedValue(Math.round(base * weightKg * (condition === 'working' ? 1.4 : condition === 'broken' ? 0.65 : 1.0)));
+      }
     };
     fetchEstimate();
   }, [category, condition, weightKg, quantity]);
@@ -57,7 +64,7 @@ export default function SubmitEWaste() {
         estimatedValue
       };
 
-      const res = await ewasteService.submitWaste(payload);
+      const res = await ewasteApi.submitWaste(payload);
       setSubmittedItem(res);
       confetti({
         particleCount: 100,
@@ -143,13 +150,22 @@ export default function SubmitEWaste() {
             </div>
           </div>
 
-          <button
-            onClick={() => setSubmittedItem(null)}
-            className="btn-primary"
-            style={{ width: '100%' }}
-          >
-            Submit Another Item
-          </button>
+          <div style={{ display: 'flex', gap: '12px', width: '100%' }}>
+            <Link
+              to={`/tracking/${submittedItem.wasteId || submittedItem.id}`}
+              className="btn-primary"
+              style={{ flex: 1, textDecoration: 'none', justifyContent: 'center' }}
+            >
+              Track Lifecycle Telemetry →
+            </Link>
+            <button
+              onClick={() => setSubmittedItem(null)}
+              className="btn-secondary"
+              style={{ flex: 1, padding: '12px' }}
+            >
+              Submit Another Item
+            </button>
+          </div>
         </div>
       </div>
     );
