@@ -16,21 +16,18 @@ public class AnalyticsService {
     private final RecyclerRepository recyclerRepository;
     private final CertificateRepository certificateRepository;
     private final SecurityAlertRepository securityAlertRepository;
-    private final RecoveredMaterialRepository recoveredMaterialRepository;
 
     public AnalyticsService(
             UserRepository userRepository,
             EWasteRepository eWasteRepository,
             RecyclerRepository recyclerRepository,
             CertificateRepository certificateRepository,
-            SecurityAlertRepository securityAlertRepository,
-            RecoveredMaterialRepository recoveredMaterialRepository) {
+            SecurityAlertRepository securityAlertRepository) {
         this.userRepository = userRepository;
         this.eWasteRepository = eWasteRepository;
         this.recyclerRepository = recyclerRepository;
         this.certificateRepository = certificateRepository;
         this.securityAlertRepository = securityAlertRepository;
-        this.recoveredMaterialRepository = recoveredMaterialRepository;
     }
 
     public Map<String, Object> getAdminDashboardData() {

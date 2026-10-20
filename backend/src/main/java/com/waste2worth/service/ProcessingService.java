@@ -19,7 +19,6 @@ public class ProcessingService {
     private final RecoveredMaterialRepository recoveredMaterialRepository;
     private final EWasteRepository eWasteRepository;
     private final RecyclerRepository recyclerRepository;
-    private final PickupService pickupService;
     private final InventoryService inventoryService;
     private final CertificateService certificateService;
     private final RewardService rewardService;
@@ -30,7 +29,6 @@ public class ProcessingService {
             RecoveredMaterialRepository recoveredMaterialRepository,
             EWasteRepository eWasteRepository,
             RecyclerRepository recyclerRepository,
-            PickupService pickupService,
             InventoryService inventoryService,
             CertificateService certificateService,
             RewardService rewardService,
@@ -39,7 +37,6 @@ public class ProcessingService {
         this.recoveredMaterialRepository = recoveredMaterialRepository;
         this.eWasteRepository = eWasteRepository;
         this.recyclerRepository = recyclerRepository;
-        this.pickupService = pickupService;
         this.inventoryService = inventoryService;
         this.certificateService = certificateService;
         this.rewardService = rewardService;

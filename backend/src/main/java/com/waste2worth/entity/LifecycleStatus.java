@@ -1,7 +1,6 @@
 package com.waste2worth.entity;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public enum LifecycleStatus {

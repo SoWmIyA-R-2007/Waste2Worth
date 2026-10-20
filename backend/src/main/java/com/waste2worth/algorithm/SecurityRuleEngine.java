@@ -1,7 +1,6 @@
 package com.waste2worth.algorithm;
 
 import com.waste2worth.entity.EWasteItem;
-import com.waste2worth.entity.LifecycleStatus;
 import com.waste2worth.entity.RuleCode;
 import com.waste2worth.repository.EWasteRepository;
 import com.waste2worth.service.SecurityAlertService;

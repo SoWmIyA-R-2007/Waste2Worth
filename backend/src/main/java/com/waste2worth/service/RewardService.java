@@ -1,6 +1,5 @@
 package com.waste2worth.service;
 
-import com.waste2worth.dto.UserDto;
 import com.waste2worth.entity.Reward;
 import com.waste2worth.entity.RewardType;
 import com.waste2worth.entity.User;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class RewardService {

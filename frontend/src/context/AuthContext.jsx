@@ -59,8 +59,18 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('w2w_user', JSON.stringify(updated));
   };
 
+  const updateProfile = (updatedData) => {
+    const updated = {
+      ...currentUser,
+      ...updatedData
+    };
+    setCurrentUser(updated);
+    localStorage.setItem('w2w_user', JSON.stringify(updated));
+    return updated;
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser, token, login, logout, switchRole }}>
+    <AuthContext.Provider value={{ currentUser, token, login, logout, switchRole, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );

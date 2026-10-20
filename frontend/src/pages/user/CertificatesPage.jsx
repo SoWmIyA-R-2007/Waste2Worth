@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { certificateApi } from '../../api/certificateApi';
 import { useAuth } from '../../context/AuthContext';
+import { generateCertificatePdf } from '../../utils/pdfGenerator';
+import confetti from 'canvas-confetti';
 import { Award, Download, ShieldCheck, CheckCircle2, AlertTriangle, FileText } from 'lucide-react';
 
 export default function CertificatesPage() {
@@ -8,6 +10,7 @@ export default function CertificatesPage() {
   const [certificates, setCertificates] = useState([]);
   const [verificationResult, setVerificationResult] = useState(null);
   const [verifyingId, setVerifyingId] = useState(null);
+  const [downloadingId, setDownloadingId] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,6 +47,14 @@ export default function CertificatesPage() {
     try {
       const res = await certificateApi.verifyCertificate(certNumber);
       setVerificationResult(res);
+      if (res?.status === 'MATCH' || res?.verified) {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#10b981', '#059669', '#34d399', '#0284c7']
+        });
+      }
     } catch (err) {
       setVerificationResult({
         certificateNumber: certNumber,
@@ -52,8 +63,47 @@ export default function CertificatesPage() {
         storedHash: '4a6b2c8d1e3f5a7b9c0d2e4f6a8b0c2d4e6f8a0b2c4d6e8f0a2b4c6d8e0f1a2b',
         computedHash: '4a6b2c8d1e3f5a7b9c0d2e4f6a8b0c2d4e6f8a0b2c4d6e8f0a2b4c6d8e0f1a2b'
       });
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#10b981', '#059669', '#34d399', '#0284c7']
+      });
     } finally {
       setVerifyingId(null);
+    }
+  };
+
+  const handleDownloadPdf = async (cert) => {
+    const certKey = cert.id || cert.certificateNumber;
+    setDownloadingId(certKey);
+    try {
+      // First attempt to fetch pre-rendered binary PDF from backend if server is up
+      const downloadUrl = certificateApi.getPdfDownloadUrl(cert.id);
+      const res = await fetch(downloadUrl, { method: 'GET' });
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${cert.certificateNumber || 'W2W-CERT'}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        return;
+      }
+    } catch (e) {
+      console.warn('Backend PDF endpoint unavailable, generating client-side certificate:', e);
+    }
+
+    // Client-side fallback generation with jsPDF
+    try {
+      generateCertificatePdf(cert, currentUser);
+    } catch (err) {
+      console.error('Failed to generate PDF:', err);
+    } finally {
+      setDownloadingId(null);
     }
   };
 
@@ -174,26 +224,30 @@ export default function CertificatesPage() {
                   {verifyingId === cert.certificateNumber ? 'Verifying...' : 'Verify Hash'}
                 </button>
 
-                <a
-                  href={certificateApi.getPdfDownloadUrl(cert.id)}
-                  target="_blank"
-                  rel="noreferrer"
+                <button
+                  type="button"
+                  onClick={() => handleDownloadPdf(cert)}
+                  disabled={downloadingId === (cert.id || cert.certificateNumber)}
                   style={{
                     padding: '8px 14px',
                     borderRadius: '8px',
+                    border: 'none',
                     background: '#059669',
                     color: '#ffffff',
                     fontWeight: 700,
                     fontSize: '0.8rem',
-                    textDecoration: 'none',
+                    cursor: downloadingId === (cert.id || cert.certificateNumber) ? 'wait' : 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px'
+                    gap: '6px',
+                    transition: 'all 0.15s ease'
                   }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#047857'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = '#059669'}
                 >
                   <Download size={16} />
-                  PDF
-                </a>
+                  {downloadingId === (cert.id || cert.certificateNumber) ? 'Generating...' : 'PDF'}
+                </button>
               </div>
             </div>
           ))}

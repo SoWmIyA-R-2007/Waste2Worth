@@ -69,7 +69,7 @@ export default function UserDashboard() {
 
       {/* Metrics Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginBottom: '32px' }}>
-        <div className="glass-panel" style={{ padding: '24px' }}>
+        <div className="glass-panel hover-lift animate-slide-up stagger-1" style={{ padding: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 600 }}>Total Requests</span>
             <div style={{ padding: '8px', borderRadius: '10px', background: '#e0f2fe' }}>
@@ -82,7 +82,7 @@ export default function UserDashboard() {
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Registered e-waste submissions</span>
         </div>
 
-        <div className="glass-panel" style={{ padding: '24px' }}>
+        <div className="glass-panel hover-lift animate-slide-up stagger-2" style={{ padding: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 600 }}>Total Recycled</span>
             <div style={{ padding: '8px', borderRadius: '10px', background: '#ecfdf5' }}>
@@ -95,7 +95,7 @@ export default function UserDashboard() {
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Prevented from hazardous landfills</span>
         </div>
 
-        <div className="glass-panel" style={{ padding: '24px' }}>
+        <div className="glass-panel hover-lift animate-slide-up stagger-3" style={{ padding: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 600 }}>EcoPoints Balance</span>
             <div style={{ padding: '8px', borderRadius: '10px', background: '#fef3c7' }}>
